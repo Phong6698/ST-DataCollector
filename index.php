@@ -36,21 +36,21 @@
 			
 			$sql = "SELECT * FROM summoner";
 			$result = $conn->query($sql);
-			
+			if (!$result) {
+				throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
+			}
 			if ($result->num_rows > 0) {
 				// output data of each row
-				//TODO Fatal error: Call to a member function fetch_assoc() on string 
-				//Created an ask on stackoverflow
 				while($row = $result->fetch_assoc()) {
 					echo "<h1>" . $row["SummonerId"]. "</h1>";		
 					$summonerId = $row["SummonerId"];
 					$url = "https://euw.api.pvp.net/api/lol/euw/v1.3/game/by-summoner/" . $summonerId . "/recent?api_key=" . $api_key;
 						
-					$result = file_get_contents($url);
-					$resultJSON = json_decode($result);
+					$resultJSON = file_get_contents($url);
+					$resultJSON_decoded = json_decode($resultJSON);
 						
 						
-					foreach($resultJSON->games as $game){
+					foreach($resultJSON_decoded->games as $game){
 						echo $game->gameMode." ".$game->gameType." ".$game->subType;
 						echo "<br>";
 					}
@@ -59,7 +59,7 @@
 				echo "0 results";
 			}
 			
-			$mysqli->close();
+			$conn->close();
 			
 		?>
 	</div>
