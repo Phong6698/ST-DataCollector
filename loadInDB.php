@@ -1,6 +1,6 @@
 <?php
-	include_once '/model/Summoner.php';
-	include_once '/model/Game.php';
+	require_once 'model/Summoner.php';
+	require_once 'model/Game.php';
 
 	$summonerId = "";
 	$api_key = "58453580-a12b-497a-bdde-d1255bd0fda3";
