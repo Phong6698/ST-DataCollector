@@ -2,6 +2,7 @@
 require_once __DIR__ .'/../database/TableSummoner.php';
 //http://stackoverflow.com/questions/9149483/get-folder-up-one-level
 
+
 class DatabaseController{
 
     private  $TABLE_SUMMONER = null;
