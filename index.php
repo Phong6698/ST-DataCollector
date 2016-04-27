@@ -1,13 +1,11 @@
 <?php
+	require_once 'model/Summoner.php';
+	require_once 'model/Game.php';
+	require_once 'controller/DatabaseController.php';
+
 	$page = $_SERVER['PHP_SELF'];
 	$sec = "1500";
-	$summonerId = "";
 	$api_key = "58453580-a12b-497a-bdde-d1255bd0fda3";
-	$servername = "localhost:3307";
-	$username = "root";
-	$password = "";
-	$dbname = "st-datacollector";
-	$summoners = array();
 // 	1500 = 25 min
 // 	summonerid = 67540676
 ?>
@@ -39,30 +37,7 @@
 				/*
 				 *Get all Summoner from DB
 				 */
-				$conn = new mysqli($servername, $username, $password, $dbname);
-				// Check connection
-				if ($conn->connect_error) {
-					die("Connection failed: " . $conn->connect_error);
-				}
-				echo "Connected successfully"."<br>";
-				
-				$sql = "SELECT * FROM summoner";
-				$result = $conn->query($sql);
-				if (!$result) {
-					throw new Exception("Database Error [{$this->database->errno}] {$this->database->error}");
-				}
-				if ($result->num_rows > 0) {
-					// output data of each row
-					while($row = $result->fetch_assoc()) {
-						$summoner = new Summoner();
-						$summoner->__set('id', $row['ID_Summoner']);
-						$summoner->__set('summonerId', $row['SummonerId']);				
-						array_push($summoners, $summoner);							
-					}
-				} else {
-					echo "0 results";
-				}
-				$conn->close();
+				$summoners = DatabaseController::getInstance()->getAllSummoners();
 				
 				/*
 				 *Get games infos from API
@@ -76,6 +51,7 @@
 					//$games = array();
 						
 					foreach($resultJSON_decoded->games as $gameJsonObj){
+						echo $gameJsonObj->subType."<br>";
 						//SELECT createDate FROM `games` WHERE Summoner_ID = 1 ORDER BY createDate DESC;
 						//TODO createDate(API) > createDate(DB) save in DB
 						//TODO createDate(API) <= createDate(DB) don't save in DB
