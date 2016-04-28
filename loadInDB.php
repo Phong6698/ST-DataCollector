@@ -3,7 +3,7 @@
 	require_once 'model/Game.php';
 
 	$summonerId = "";
-	$api_key = "58453580-a12b-497a-bdde-d1255bd0fda3";
+	$api_key = "";
 	$servername = "localhost:3307";
 	$username = "root";
 	$password = "";

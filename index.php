@@ -5,7 +5,7 @@ require_once 'controller/DatabaseController.php';
 
 $page = $_SERVER['PHP_SELF'];
 $sec = "1500";
-$api_key = "58453580-a12b-497a-bdde-d1255bd0fda3";
+$api_key = "";
 // 	1500 = 25 min
 // 	summonerid = 67540676
 ?>
