@@ -5,7 +5,7 @@ class JsonLoader{
     private $api_key;
 
     public function __construct(){
-        $this->api_key = file_get_contents( __DIR__ .'/../League of Legends API Key');
+        $this->api_key = file_get_contents( __DIR__ .'/../json/League of Legends API Key');
     }
 
     public function getRecentGames($summonerId){
