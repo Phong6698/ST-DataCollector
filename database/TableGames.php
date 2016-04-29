@@ -1,12 +1,6 @@
 <?php
 require_once 'Database.php';
 
-/**
- * Created by PhpStorm.
- * User: Phong6698
- * Date: 28.04.2016
- * Time: 11:06
- */
 class TableGames extends Database{
 
     public function getNewestCreateDate($summoner_ID){

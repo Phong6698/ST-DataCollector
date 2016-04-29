@@ -1,12 +1,6 @@
 <?php
 require_once 'Database.php';
 
-/**
- * Created by PhpStorm.
- * User: Phong6698
- * Date: 27.04.2016
- * Time: 22:31
- */
 class TableSummoner extends Database{
 
     public function getAllSummoners(){

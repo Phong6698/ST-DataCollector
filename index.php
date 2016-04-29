@@ -1,11 +1,8 @@
 <?php
-require_once 'model/Summoner.php';
-require_once 'model/Game.php';
-require_once 'controller/DatabaseController.php';
+include_once 'script/DataChecker.php';
 
 $page = $_SERVER['PHP_SELF'];
 $sec = "1500";
-$api_key = "";
 // 	1500 = 25 min
 // 	summonerid = 67540676
 ?>
@@ -14,7 +11,7 @@ $api_key = "";
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
-	<script src="JavaScript.js"></script>
+	<script src="script/JavaScript.js"></script>
 	<title>Summoner Tracker - Data Collector</title>
 </head>
 <body>
@@ -37,48 +34,13 @@ $api_key = "";
 		/*
          *Get all Summoner from DB
          */
-		$summoners = DatabaseController::getInstance()->getAllSummoners();
+		$dataChecker = new DataChecker();
+		$dataChecker->checkData();
 
 		/*
          *Get games infos from API
          */
-		foreach($summoners as $summoner){
-			$urlapi = "https://euw.api.pvp.net/api/lol/euw/v1.3/game/by-summoner/" . $summoner->__get('summonerId') . "/recent?api_key=" . $api_key;
-			$urllocal = "http://localhost:8080/ST-DataCollector/LocalJSON.json";
-			$resultJSON = file_get_contents($urlapi);
-			$resultJSON_decoded = json_decode($resultJSON);
-
-			//$games = array();
-
-			$createDateDB = DatabaseController::getInstance()->getNewestCreateDate($summoner->__get('id'));
-			$createDateAPI = $resultJSON_decoded->games[0]->createDate;
-			echo $createDateAPI." : ".$createDateDB;
-
-			if($createDateAPI > $createDateDB){
-				//TODO save in DB
-				echo " NEW<br>";
-			}elseif($createDateAPI <= $createDateDB){
-				//TODO don't save in DB
-				echo " OLD<br>";
-			}
-
-			//TODO look at the $resultJSON_decoded->games[1]->createDate
-
-
-			/*
-            $game = new Game();
-            $game->__set('gameId', $gameJsonObj->gameId);
-            $game->__set('gameMode', $gameJsonObj->gameMode);
-            $game->__set('gameType', $gameJsonObj->gameType);
-            $game->__set('subType', $gameJsonObj->subType);
-            $game->__set('createDate', $gameJsonObj->createDate);
-
-            array_push($games, $game);
-            */
-
-
-			//$summoner->__set('games', $games);
-		}
+		
 
 
 

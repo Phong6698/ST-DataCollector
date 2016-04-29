@@ -26,7 +26,7 @@
 	<div class="content">	
 		<div class="summoners">
 			<?php 
-			
+				
 				
 				
 				/*
