@@ -3,7 +3,7 @@
 	require_once 'model/Game.php';
 
 	$summonerId = "";
-	$api_key = "";
+	$api_key = file_get_contents( __DIR__ .'/json/League of Legends API Key');
 	$servername = "localhost:3307";
 	$username = "root";
 	$password = "";
