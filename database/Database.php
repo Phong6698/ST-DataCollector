@@ -4,7 +4,7 @@ class Database {
 	
 	
 	private $servername = "localhost:3307";
-	private $dbname = "st-datacollector";
+	private $dbname = "summoner-tracker";
 	private $username = "root";
 	private $password = "";
 

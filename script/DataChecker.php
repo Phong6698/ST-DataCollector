@@ -15,33 +15,36 @@ class DataChecker{
 
             $createDateDB = DatabaseController::getInstance()->getNewestCreateDate($summoner->__get('id'));
             $games = JsonController::getInstance()->getGames($summoner->__get("summonerId"));
-            $createDateAPI = $games[0]->__get("createDate");
-            echo $createDateAPI." : ".$createDateDB;
+            foreach($games as $game){
+                $createDateAPI = $game->__get("createDate");
+                echo $createDateAPI." : ".$createDateDB;
 
-            if($createDateAPI > $createDateDB){
-                //TODO save in DB
-                echo " NEW<br>";
-            }elseif($createDateAPI <= $createDateDB){
-                //TODO don't save in DB
-                echo " OLD<br>";
+                if($createDateAPI > $createDateDB){
+                    //TODO save in DB
+                    echo " NEW<br>";
+                }elseif($createDateAPI <= $createDateDB){
+                    //TODO don't save in DB
+                    echo " OLD<br>";
+                }
+
+                //TODO look at the $resultJSON_decoded->games[1]->createDate
+
+
+                /*
+                $game = new Game();
+                $game->__set('gameId', $gameJsonObj->gameId);
+                $game->__set('gameMode', $gameJsonObj->gameMode);
+                $game->__set('gameType', $gameJsonObj->gameType);
+                $game->__set('subType', $gameJsonObj->subType);
+                $game->__set('createDate', $gameJsonObj->createDate);
+
+                array_push($games, $game);
+                */
+
+
+                //$summoner->__set('games', $games);
             }
 
-            //TODO look at the $resultJSON_decoded->games[1]->createDate
-
-
-            /*
-            $game = new Game();
-            $game->__set('gameId', $gameJsonObj->gameId);
-            $game->__set('gameMode', $gameJsonObj->gameMode);
-            $game->__set('gameType', $gameJsonObj->gameType);
-            $game->__set('subType', $gameJsonObj->subType);
-            $game->__set('createDate', $gameJsonObj->createDate);
-
-            array_push($games, $game);
-            */
-
-
-            //$summoner->__set('games', $games);
         }
     }
 

@@ -3,11 +3,11 @@
 	require_once 'model/Game.php';
 
 	$summonerId = "";
-	$api_key = file_get_contents( __DIR__ .'/json/League of Legends API Key');
+	$api_key = file_get_contents( __DIR__ .'/json/League of Legends API');
 	$servername = "localhost:3307";
 	$username = "root";
 	$password = "";
-	$dbname = "st-datacollector";
+	$dbname = "summoner-tracker";
 	
 	$summoners = array();
 ?>
@@ -49,7 +49,7 @@
 					while($row = $result->fetch_assoc()) {
 						$summoner = new Summoner();
 						$summoner->__set('id', $row['ID_Summoner']);
-						$summoner->__set('summonerId', $row['SummonerId']);				
+						$summoner->__set('summonerId', $row['summonerId']);
 						array_push($summoners, $summoner);							
 					}
 				} else {
@@ -88,17 +88,30 @@
 				 *Save games infos in DB
 				 */
 				$conn = new mysqli($servername, $username, $password, $dbname);
-				$stmt = $conn->prepare("INSERT INTO games (gameId, gameMode, gameType, subType, createDate, Summoner_ID) VALUES (?, ?, ?, ?, ?, ?);");
-				$stmt->bind_param("isssii", $gameId, $gameMode, $gameType, $subType, $createDate, $summoner_ID);
+				$stmt = $conn->prepare("INSERT INTO game (gameId, gameMode, gameType, subType, createDate, Summoner_ID) VALUES (?, ?, ?, ?, ?, ?);");
+				$stmt->bind_param("isssii", $gameId, $gameMode, $gameType, $subType, $createDate, $Summoner_ID);
 
 				foreach($summoners as $summoner){
 					$summoner_ID = $summoner->__get('id');
+					echo $summoner_ID;
+					echo "<br";
 					foreach($summoner->__get('games') as $game){
 						$gameId = $game->__get('gameId');
+						echo $gameId;
+						echo "<br";
 						$gameMode = $game->__get('gameMode');
+						echo $gameMode;
+						echo "<br";
 						$gameType = $game->__get('gameType');
+						echo $gameType;
+						echo "<br";
 						$subType = $game->__get('subType');
+						echo $subType;
+						echo "<br";
 						$createDate = $game->__get('createDate');
+						echo $createDate;
+						echo "<br";
+
 						$stmt->execute();
 					}
 				}

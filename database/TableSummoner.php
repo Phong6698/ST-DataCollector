@@ -16,7 +16,7 @@ class TableSummoner extends Database{
                 while ($row = $result->fetch_assoc()) {
                     $summoner = new Summoner();
                     $summoner->__set('id', $row['ID_Summoner']);
-                    $summoner->__set('summonerId', $row['SummonerId']);
+                    $summoner->__set('summonerId', $row['summonerId']);
                     array_push($summoners, $summoner);
                 }
             } else {
